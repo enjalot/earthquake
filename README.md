@@ -1,6 +1,8 @@
 earthquake resilience
 =====================
 
+### [d3 getting started notes](https://docs.google.com/document/d/1c06-5NIaaAurbwfxtnoQRCuFvKJdz1gcMCmlvfISUDc/edit?usp=sharing)
+
 More earthquake simulation [data available](http://earthquake.usgs.gov/earthquakes/shakemap/global/shake/haywiredm7.05_se/#download)
 
 Relevant [ESRI Shape files](https://github.com/enjalot/earthquake/tree/master/HazusSHP)  
