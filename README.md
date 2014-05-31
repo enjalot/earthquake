@@ -1,14 +1,17 @@
 earthquake resilience
 =====================
 
-### [d3 getting started notes](https://docs.google.com/document/d/1c06-5NIaaAurbwfxtnoQRCuFvKJdz1gcMCmlvfISUDc/edit?usp=sharing)
-
+Event [information and more links](http://smartcities.berkeley.edu/resilience-hackathon-2014/)
 More earthquake simulation [data available](http://earthquake.usgs.gov/earthquakes/shakemap/global/shake/haywiredm7.05_se/#download)
 
 Relevant [ESRI Shape files](https://github.com/enjalot/earthquake/tree/master/HazusSHP)  
 Converted to [GeoJSON](https://github.com/enjalot/earthquake/tree/master/HazusGeoJSON)  
 Converted to [TopoJSON](https://github.com/enjalot/earthquake/tree/master/HazusTopoJSON)  
 
+## Descriptions of the data fields
+[pdf detailing the data](https://github.com/enjalot/earthquake/tree/master/HazusDataFields.pdf)
+
+### [d3 getting started notes](https://docs.google.com/document/d/1c06-5NIaaAurbwfxtnoQRCuFvKJdz1gcMCmlvfISUDc/edit?usp=sharing)
 
 ## converting shp files to geojson
 The following command was used on a Mac to generate the GeoJSON.
