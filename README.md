@@ -12,6 +12,9 @@ Converted to [TopoJSON](https://github.com/enjalot/earthquake/tree/master/HazusT
 
 ### [d3 getting started notes](https://docs.google.com/document/d/1c06-5NIaaAurbwfxtnoQRCuFvKJdz1gcMCmlvfISUDc/edit?usp=sharing)
 
+### Exploring the data
+[Point based data](http://alex-girard.github.io/D3MapOverlays/) rendered in WebGL by @alex-girard
+
 ## converting shp files to geojson
 The following command was used on a Mac to generate the GeoJSON.
 ```
