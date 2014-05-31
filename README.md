@@ -1,7 +1,7 @@
 earthquake resilience
 =====================
 
-Event [information and more links](http://smartcities.berkeley.edu/resilience-hackathon-2014/)  
+Event [information](http://swissnexsanfrancisco.org/Ourwork/events/earthquakeresilience) and [UCBerkeley resources](http://smartcities.berkeley.edu/resilience-hackathon-2014/)  
 More earthquake simulation [data available](http://earthquake.usgs.gov/earthquakes/shakemap/global/shake/haywiredm7.05_se/#download)
 
 Relevant [ESRI Shape files](https://github.com/enjalot/earthquake/tree/master/HazusSHP)  
