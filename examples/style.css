@@ -1,0 +1,32 @@
+@import url(//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.2/leaflet.css);
+#map {
+  width: 960px;
+  height: 500px;
+}
+
+/* Same table stylings for all the examples */
+#table {
+  width: 960px;
+  height: 500px;
+  overflow: scroll;
+  font-family: Helvetica, sans-serif;
+}
+#table td {
+  border: none;
+  margin: 0px;
+  padding: 0px 5px;
+  text-align: center;
+  cursor: pointer;
+}
+#table tr:nth-child(2n+1) {
+  background-color: #efefef;
+}
+#table tr:nth-child(2n+1).highlighted {
+  background-color: #f9e4e4;
+}
+#table td.header {
+  padding: 8px;
+}
+tr.highlighted {
+  background-color: #f9e4e4;
+}
