@@ -28,7 +28,7 @@ for i in *.shp; do ogr2ogr -f geoJSON ../HazusGeoJSON/$i.json $i; done
 ## converting shp files to topojson
 The following command was used on a Mac to generate the TopoJSON.
 ```
-for i in *.shp; do topojson -o ../HazusTopoJSON/$i.json $i; done
+for i in *.shp; do topojson -p -o ../HazusTopoJSON/$i.json $i; done
 ```
 
 there are more options available in topojson, so you might want to convert yourself with a custom command.  
