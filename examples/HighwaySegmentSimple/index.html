@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="../lib/d3.v3.min.js"></script>
+    <script src="../lib/topojson.v1.min.js"></script>
+    <script src="../lib/leaflet.js"></script>
+    <script src="../lib/tile.stamen.js"></script>
+    <link rel="stylesheet" href="../style.css" >
+    <style>
+      path.segments {
+        fill: none;
+        stroke-width: 2;
+      }
+      path.highlighted {
+        stroke-width: 5;
+        stroke: #555;
+      }
+      svg {
+        cursor: pointer;
+      }
+      #description select {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <div id="table">
+      <table><thead></thead><tbody></tbody></table>
+    </div>
+    <div id="description">
+      topojson -p -o HazusTopoJSON/HighwaySegment.shp.simple.json HazusSHP/HighwaySegment.shp --simplify 1e-8
+    </div>
+    <script>
+      //these are the corners of the square that forms the svg
+      //arbitrarily chosen to cover the bay area
+      var s = [
+        [39.5, -124.65],
+        [39.5, -120.7],
+        [36.1, -120.7],
+        [36.1, -124.65]
+      ];
+      var colorScale = d3.scale.linear()
+      .domain([70, 100])
+      .range(["#f00", "#00f"])
+      .interpolate(d3.interpolateHsl)
+
+      var selectKeys = [
+        "FunctDay1",
+        "FunctDay3",
+        "FunctDay7",
+        "FunctDay14",
+        "FunctDay30",
+        "FunctDay90",
+      ];
+      var selectedKey = selectKeys[0];
+
+      var map = new L.Map("map", {center: [37.77, -122.4376], zoom: 9})
+        .addLayer(new L.StamenTileLayer("toner-lite"));
+
+      var svg = d3.select(map.getPanes().overlayPane).append("svg");
+      var g = svg.append("g").attr("class", "leaflet-zoom-hide");
+
+      var highways;
+      var paths;
+      d3.json("../../HazusTopoJSON/HighwaySegment.shp.simple.json", function(err, data) {
+        highways = data
+        console.log(highways);
+        paths = topojson.feature(highways, highways.objects.HighwaySegment);
+        viewReset();
+        table();
+      });
+
+      map.on("viewreset", viewReset);
+      function viewReset() {
+        var topLeft = map.latLngToLayerPoint(new L.LatLng(s[0][0], s[0][1]));
+        var bottomRight = map.latLngToLayerPoint(new L.LatLng(s[2][0], s[2][1]));
+        svg.attr("width", bottomRight.x - topLeft.x)
+          .attr("height", bottomRight.y - topLeft.y)
+          .style("left", topLeft.x + "px")
+          .style("top", topLeft.y + "px");
+        g.attr("transform", "translate(" + -topLeft.x + "," + -topLeft.y + ")");
+
+        render();
+      }
+      function projector(latlng) {
+        var p = map.latLngToLayerPoint(new L.LatLng(latlng[1], latlng[0]));
+        return [p.x, p.y];
+      }
+
+      function render() {
+        //TODO decouple
+        var path = d3.geo.path()
+          .projection(projector)
+
+        var features = g.selectAll("path.segments")
+          .data(paths.features)
+        features.enter()
+          .append("path").classed("segments", true)
+            .on("click", function(d,i) {
+              console.log(d);
+            })
+            .on("mouseover", function(d,i) {
+              features.classed("highlighted", false);
+              d3.select(this).classed("highlighted", true);
+            })
+          features.attr("d", path)
+            .style({
+              stroke: function(d) { return colorScale(d.properties[selectedKey]) }
+            })
+      }
+
+      function table() {
+        var keys = Object.keys(paths.features[0].properties);
+
+        d3.select("#table thead")
+          .append("tr").selectAll("tr.header")
+          .data(keys)
+          .enter()
+          .append("td")
+          .classed("header", true)
+          .text(function(d) { return d });
+
+        var tbl = d3.select("#table tbody");
+        var ths = tbl.selectAll("tr.rows")
+          .data(paths.features)
+        ths
+          .enter()
+          .append("tr").classed("rows", true)
+          .each(function(row,i) {
+            var tr = d3.select(this);
+            tr.selectAll("td").data(keys)
+            .enter().append("td")
+            .text(function(cell,i) { return row.properties[cell]; })
+          })
+          .on("mouseover", function(d,i) {
+            ths.classed("highlighted", false);
+            d3.select(this).classed("highlighted", true);
+
+            g.selectAll("path.segments").classed("highlighted", false)
+            var selected = g.selectAll("path.segments").filter(function(c) { return c === d })
+            .classed("highlighted", true);
+          })
+      }
+
+      var description = d3.select("#description")
+      var selector = description.append("select")
+      selector.selectAll("option")
+      .data(selectKeys)
+      .enter()
+      .append("option")
+      .text(function(d) { return d })
+      selector.on("change", function(d) {
+        console.log("sup", this.selectedIndex)
+        selectedKey = selectKeys[this.selectedIndex];
+        render();
+      })
+    </script>
+  </body>
+</html>
