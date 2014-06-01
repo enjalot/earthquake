@@ -1,7 +1,7 @@
 earthquake resilience
 =====================
 
-Event [information and more links](http://smartcities.berkeley.edu/resilience-hackathon-2014/)
+Event [information](http://swissnexsanfrancisco.org/Ourwork/events/earthquakeresilience) and [UCBerkeley resources](http://smartcities.berkeley.edu/resilience-hackathon-2014/)  
 More earthquake simulation [data available](http://earthquake.usgs.gov/earthquakes/shakemap/global/shake/haywiredm7.05_se/#download)
 
 Relevant [ESRI Shape files](https://github.com/enjalot/earthquake/tree/master/HazusSHP)  
@@ -13,7 +13,8 @@ Converted to [TopoJSON](https://github.com/enjalot/earthquake/tree/master/HazusT
 ### [d3 getting started notes](https://docs.google.com/document/d/1c06-5NIaaAurbwfxtnoQRCuFvKJdz1gcMCmlvfISUDc/edit?usp=sharing)
 
 ### Exploring the data
-[Point based data](http://alex-girard.github.io/D3MapOverlays/) rendered in WebGL by @alex-girard
+* [Point based data](http://alex-girard.github.io/D3MapOverlays/) rendered in WebGL by @alex-girard  
+* [Map + table](http://enjalot.github.io/earthquake/) for some of the data files  
 
 ## converting shp files to geojson
 The following command was used on a Mac to generate the GeoJSON.
@@ -27,7 +28,7 @@ for i in *.shp; do ogr2ogr -f geoJSON ../HazusGeoJSON/$i.json $i; done
 ## converting shp files to topojson
 The following command was used on a Mac to generate the TopoJSON.
 ```
-for i in *.shp; do topojson -o ../HazusTopoJSON/$i.json $i; done
+for i in *.shp; do topojson -p -o ../HazusTopoJSON/$i.json $i; done
 ```
 
 there are more options available in topojson, so you might want to convert yourself with a custom command.  
